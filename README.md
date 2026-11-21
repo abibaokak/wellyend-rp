@@ -10,14 +10,14 @@
 ## RAW URL для плагина
 
 ```
-https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip?v=9a9c0e4f
+https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip?v=d8a119c2
 ```
 
 ## Контрольные суммы
 
-- SHA-1:  `9a9c0e4f381b8ff967ae6de1c9ee7e3471e2be56`
-- SHA-256: `0841718296196233cb0fefd3f03b3073af90e5f6adb5951280c8d2479f976adc`
-- Размер: 5931 байт
+- SHA-1:  `d8a119c2086068f1e5e07b5566be857733849924`
+- SHA-256: `b301a9b5e2a352159411b4120bd70e4a21d548fb09dac8e2a0e51d616c6f5333`
+- Размер: 7219 байт
 
 ## Что меняет пак
 
@@ -32,4 +32,17 @@ https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip
 валидны. Описание пака на латинице: кириллица в старом генераторе била
 `pack.mcmeta` и приводила к `FAILED_RELOAD` у клиентов.
 
-Плагин предлагает этот пак при входе (не принудительно) и не кикает за отказ.
+## Важно для Paper 1.21.4+
+
+Начиная с 1.21.4 старые `assets/minecraft/models/item/*.json` с `overrides`
+больше не выбирают модель по `custom_model_data`. Пак содержит **оба формата**:
+
+- `assets/minecraft/models/item/*.json` — для клиентов 1.21.3 и ниже;
+- `assets/minecraft/items/*.json` — `minecraft:range_dispatch` по
+  `minecraft:custom_model_data` (поле `floats`), который работает на 1.21.11.
+
+Без второго формата предмет остаётся обычной бумагой/компасом, даже если пак
+успешно загружен. `setCustomModelData(int)` попадает в `floats[0]`.
+
+Плагин выдаёт этот пак принудительно (`force: true`) и кикает при отказе или
+ошибке загрузки (`kick-on-decline: true`).

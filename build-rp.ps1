@@ -65,9 +65,14 @@ $icon.G.FillRectangle($cyan, 44, 74, 40, 6)
 $icon.G.FillRectangle($cyan, 50, 84, 28, 4)
 Save-Png (Join-Path $root 'pack.png') $icon
 
-# --- модели ванильных предметов с overrides по custom_model_data ---
+# --- модели предметов ---
+# Два формата одновременно:
+#  1) старый assets/minecraft/models/item/*.json с overrides — для 1.21.3 и ниже;
+#  2) новый assets/minecraft/items/*.json (range_dispatch по custom_model_data.floats)
+#     — именно он работает на 1.21.4+ (в т.ч. 1.21.11). Без него предмет остаётся
+#     обычной бумагой/компасом, даже если пак успешно загружен.
 function Write-VanillaModel([string]$name, [string]$texture, [int]$cmd, [string]$model) {
-    $json = @"
+    $legacy = @"
 {
   "parent": "minecraft:item/generated",
   "textures": { "layer0": "minecraft:item/$texture" },
@@ -76,7 +81,23 @@ function Write-VanillaModel([string]$name, [string]$texture, [int]$cmd, [string]
   ]
 }
 "@
-    Write-Utf8 (Join-Path $root "assets\minecraft\models\item\$name.json") $json
+    Write-Utf8 (Join-Path $root "assets\minecraft\models\item\$name.json") $legacy
+
+    $next = $cmd + 1
+    $modern = @"
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "property": "minecraft:custom_model_data",
+    "entries": [
+      { "threshold": $cmd, "model": { "type": "minecraft:model", "model": "$model" } },
+      { "threshold": $next, "model": { "type": "minecraft:model", "model": "minecraft:item/$texture" } }
+    ],
+    "fallback": { "type": "minecraft:model", "model": "minecraft:item/$texture" }
+  }
+}
+"@
+    Write-Utf8 (Join-Path $root "assets\minecraft\items\$name.json") $modern
 }
 
 Write-VanillaModel 'paper' 'paper' 2001 'welly:item/end_shard'
