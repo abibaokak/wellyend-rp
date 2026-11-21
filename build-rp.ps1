@@ -35,8 +35,8 @@ function Pen([int]$a, [int]$r, [int]$g, [int]$b, [int]$width = 1) {
     return New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb($a, $r, $g, $b), $width)
 }
 
-# --- pack.mcmeta: 1.21.11 = 75, supported 48..75 ---
-Write-Utf8 (Join-Path $root 'pack.mcmeta') '{"pack":{"pack_format":75,"supported_formats":[48,75],"description":"WellyEndEvent - кастомный лут Энда"}}'
+# --- pack.mcmeta: 1.21.11 = 75; формат supported_formats должен быть объектом ---
+Write-Utf8 (Join-Path $root 'pack.mcmeta') '{"pack":{"pack_format":75,"supported_formats":{"min_inclusive":34,"max_inclusive":99},"min_format":[34,0],"max_format":99,"description":"WellyEndEvent - custom End loot"}}'
 
 # --- иконка ---
 $icon = New-Bitmap 128 128

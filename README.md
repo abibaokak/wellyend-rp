@@ -15,9 +15,9 @@ https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip
 
 ## Контрольные суммы
 
-- SHA-1:  `445685fd883513531f61f65a74a6a286224fc56a`
-- SHA-256: `ce68ee6c47809bd894c07cd702bc4fe90e48cfa1308dd75d845ddb8869d0c1b2`
-- Размер: 5899 байт
+- SHA-1:  `9a9c0e4f381b8ff967ae6de1c9ee7e3471e2be56`
+- SHA-256: `0841718296196233cb0fefd3f03b3073af90e5f6adb5951280c8d2479f976adc`
+- Размер: 5931 байт
 
 ## Что меняет пак
 
@@ -28,7 +28,8 @@ https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip
 | Жемчуг Края | `ENDER_PEARL` | 2003 | `welly:item/end_pearl` |
 | Дымовая бомба | `SNOWBALL` | 2004 | `welly:item/smoke_bomb` |
 
-`pack_format: 75`, `supported_formats: [48,75]` — совместимо с Paper 1.21.11.
+`pack_format: 75`, `supported_formats` задан объектом `34..99`, все JSON
+валидны. Описание пака на латинице: кириллица в старом генераторе била
+`pack.mcmeta` и приводила к `FAILED_RELOAD` у клиентов.
 
-Плагин выдаёт этот пак принудительно (`force = true`) и кикает игрока, если он
-отказался или не смог его загрузить.
+Плагин предлагает этот пак при входе (не принудительно) и не кикает за отказ.
