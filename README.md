@@ -10,7 +10,7 @@
 ## RAW URL для плагина
 
 ```
-https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip
+https://raw.githubusercontent.com/abibaokak/wellyend-rp/main/WellyEndEventRP.zip?v=9a9c0e4f
 ```
 
 ## Контрольные суммы
